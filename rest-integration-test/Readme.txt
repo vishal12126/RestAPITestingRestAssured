@@ -6,4 +6,4 @@ To run:
  ${workspace_loc:/rest-integration-test}
 4. Apply and run.
 5. Used jetty to run the project and test api's and surefire maven plugin to generate the report.
-6. Add dependencies for to get token ie. hhtpcore and hhtpclient jar
+6. Add dependencies for to get token ie. httpcore and httpclient jar
