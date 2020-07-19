@@ -1,32 +1,26 @@
-package com.epim.controller;
+package test.enterworks.epim.rest.controllers;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import static io.restassured.RestAssured.*;
-import static io.restassured.matcher.RestAssuredMatchers.*;
-import static org.hamcrest.Matchers.*;
+
+import org.junit.Assert;
+import org.junit.Test;
+
+import io.restassured.RestAssured;
+import test.enterworks.epim.rest.controllers.GetAccessToken;
 
 
 public class RepositoryControllerTest {
-
-	@BeforeAll
-	static void setup() {
-		//LOG.info("@BeforeAll - executes once before all test methods in this class");
-	}
-
-	@Test
-	public void getRepositoryListTest() {
-		
-		given().header("Authorization", "Bearer " + token)
-		.when().get("URL").then().
-		  assertThat().statusCode(200);
-		 }
+	GetAccessToken getToken = new GetAccessToken();
 	
 	@Test
-	public void getRepositoryListGroupsTest() {
-		
-		given().header("Authorization", "Bearer " + token)
-		.when().get("URL").then().
-		  assertThat().statusCode(200);
-		 }
+    public void getRepositoryDatabyRepoIdTest() {
+        String token = null;
+		try {
+			token = getToken.getTokenLoginSystemUser();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}        
+        int responseInt = RestAssured.given().header("Authorization", "Bearer "+token).when().get("http://localhost:8090/webcm/rest/api/repositories").getStatusCode();
+        System.out.println("response: " +responseInt);
+        Assert.assertEquals(responseInt, 200);
+    }
 }
